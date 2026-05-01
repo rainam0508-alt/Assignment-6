@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Assignment 6 Form</title>
+
+<style>
+  body {
+    font-family: Arial;
+    background: linear-gradient(to right, #667eea, #764ba2);
+  }
+
+  .container {
+    width: 350px;
+    margin: 60px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  input {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+
+  span {
+    color: red;
+    font-size: 12px;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 10px;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Form Validation</h2>
+
+  <!-- FIX: form submit handler added -->
+  <form onsubmit="return handleSubmit()">
+
+    <label>Name:</label>
+    <input type="text" id="name">
+    <span id="nameError"></span>
+
+    <label>Email:</label>
+    <input type="text" id="email">
+    <span id="emailError"></span>
+
+    <label>Password:</label>
+    <input type="password" id="password">
+    <span id="passError"></span>
+
+    <button id="submitBtn" type="submit" disabled>Submit</button>
+
+  </form>
+</div>
+
+<script>
+
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const submitBtn = document.getElementById("submitBtn");
+
+nameInput.addEventListener("input", validateForm);
+emailInput.addEventListener("input", validateForm);
+passwordInput.addEventListener("input", validateForm);
+
+function validateForm() {
+
+  let name = nameInput.value.trim();
+  let email = emailInput.value.trim();
+  let password = passwordInput.value.trim();
+
+  let valid = true;
+
+  document.getElementById("nameError").innerText = "";
+  document.getElementById("emailError").innerText = "";
+  document.getElementById("passError").innerText = "";
+
+  if (name === "") {
+    document.getElementById("nameError").innerText = "Name required";
+    valid = false;
+  } else if (name.length !== 3) {
+    document.getElementById("nameError").innerText = "Must be exactly 3 characters";
+    valid = false;
+  }
+
+  if (email === "") {
+    document.getElementById("emailError").innerText = "Email required";
+    valid = false;
+  } else if (!email.includes("@") || !email.endsWith(".com")) {
+    document.getElementById("emailError").innerText = "Invalid email (.com required)";
+    valid = false;
+  }
+
+  let letters = (password.match(/[a-zA-Z]/g) || []).length;
+  let digits = (password.match(/[0-9]/g) || []).length;
+  let special = (password.match(/[^a-zA-Z0-9]/g) || []).length;
+
+  if (password === "") {
+    document.getElementById("passError").innerText = "Password required";
+    valid = false;
+  } 
+  else if (password.length !== 8) {
+    document.getElementById("passError").innerText = "Must be 8 characters";
+    valid = false;
+  }
+  else if (letters !== 3 || digits !== 4 || special !== 1) {
+    document.getElementById("passError").innerText = "3 letters, 4 digits, 1 special required";
+    valid = false;
+  }
+
+  submitBtn.disabled = !valid;
+}
+
+function handleSubmit() {
+  alert("Form submitted successfully!");
+  return false; // page reload prevent
+}
+
+</script>
+
+</body>
+</html>
