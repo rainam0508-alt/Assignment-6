@@ -1,351 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Student Registration Form</title>
-    <link rel="stylesheet" href="./assignment6.css">
-</head>
+<meta charset="UTF-8">
+<title>Assignment 6 Form</title>
+
 <style>
-  body{
-
- font-family: Arial, sans-serif;
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items:center;
- min-height:100vh;
-background: linear-gradient(to righ,#667eea,#444444);
- }
-.container{
-     width: 350px;
-    margin: 60px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-  }
-
-
-
-
- .form-card {
-
- box-shadow: 0px 2px 8px 0px rgba(179, 85, 85, 0.1);
- padding: 20px;
-
- }
-
-
-
-\ .form-group {
-
-margin-bottom: 10px;
-
- }
-
-
-
-.form-group label {
-
- margin-bottom: 15px;
-font-weight:bold ;
+body {
+  font-family: Arial;
+  background: linear-gradient(to right, #667eea, #764ba2);
 }
 
-
- label {
-
- font-weight: bold;
-
- display: block;
-
- margin-bottom: 8px;
-
- color: #444444;
-
- }
-
-
-input[type=text],
-
- input[type=email],
- input[type=password],
-
- input[type=submit],
-
- select {
-
- width: 100%;
-
- border-radius: 4px;
-
- padding: 8px;
-
- box-sizing: border-box;
- border-color: #cccccc;
-
- border: 1px solid #cccccc;
-
- outline: none;
-
- }
-
-
- input[type=text]:focus,
-
- input[type=email]:focus,
-
-input[type=password]:focus,
-
- input[type=submit]:focus,
-
- select:focus {
-outline: none;
-
-border: 1px solid #cccccc;
-
+.container {
+  width: 350px;
+  margin: 60px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.option-group {
- margin-top: 5px;
+form {
+  display: flex;
+  flex-direction: column;
 }
 
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
 
- .option-row label {
+input {
+  padding: 10px;
+  margin-top: 5px;
+}
 
- display: inline;
+span {
+  color: red;
+  font-size: 12px;
+}
 
- font-weight: normal;
+button {
+  margin-top: 15px;
+  padding: 10px;
+  background: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
 
- margin-left: 3px;
-
- }
-
-
-input[type=submit] {
-
- background-color: blue;
-
-color: white;
-
- }
-
-
-
-.success-message {
-
- display: none;
-
-text-align: center;
-padding: 20px;
-
-background-color: #c5e7cd;
-
- border: 1px solid #c3e6cb;
-
-color: green;
-
-border-radius: 4px;
- }
-
-.success-message h2 {
-
- margin-top: 0;
-
- }
+button:disabled {
+  background: gray;
+}
 </style>
-<script>
-    function makeValid(errorId, msg) {
-        return document.getElementById(errorId).innerText = msg;
-    }
-    function submitForm() {
-        event.preventDefault();
-        let isValid = true;
-        let name = document.getElementById("name").value;
-        if (name.trim().length === !3) {
-            console.log("Name contains spaces");
-        } else {
-            console.log("Name does not contain spaces");
-        }
-        if (name === "" || name == null) {
-            document.getElementById("nameError").innerText = "Name is required!";
-            isValid = false;
-        } else {
-            document.getElementById("nameError").innerText = "";
-        }
-        let email = document.getElementById("email").value;
-        if (email === "" || email == null) {
-            document.getElementById("emailError").innerText = "Email is required!"
-            isValid = false;
-        } else {
-            document.getElementById("emailError").innerText = "";
-        }
-
-        let password = document.getElementById("password").value;
-        if (password === "" || password == null) {
-            document.getElementById("passwordError").innerText = "Password is required!"
-            isValid = false;
-
-        } else {
-            if (password.length < 6) {
-                document.getElementById("passwordError").innerText = "Password must be 6 lenght character!"
-                isValid = false;
-            } else {
-                document.getElementById("passwordError").innerText = "";
-            }
-        }
-
-        let city = document.getElementById("city").value;
-        if (city === "" || city == null) {
-            document.getElementById("cityError").innerText = "City is required!"
-            isValid = false;
-
-        } else {
-            document.getElementById("cityError").innerText = "";
-        }
-
-        let gender = document.querySelectorAll('input[name="gender"]:checked');
-        if (gender.length == 0) {
-            document.getElementById("genderError").innerText = "Gender is required!"
-            isValid = false;
-
-        } else {
-            document.getElementById("genderError").innerText = "";
-        }
-        let hobby = document.querySelectorAll('input[name="hobbies"]:checked');
-        if (hobby.length == 0) {
-            document.getElementById("hobbyError").innerText = "Hobby is required!"
-            isValid = false;
-        } else {
-            document.getElementById("hobbyError").innerText = "";
-        }
-
-        if (isValid) {
-            document.getElementById("studentForm").style.display = "none";
-            let successDiv = document.getElementById("successMessage");
-            successDiv.style.display = "block";
-            successDiv.innerHTML = "<h2> Success!</h2><p>Hello <b>" + name + "</b>, your Form has been Submit succesfully!</p>";
-        }
-        return false;
-    }
-
-
-
-    function oninputChangeName(nameValue) { // function with paramter
-        //let name = document.getElementById("name").value;
-        if (nameValue === "" || nameValue == null) {
-            document.getElementById("nameError").innerText = "Name is required!";
-            isValid = false;
-        } else {
-            if (nameValue.length < 3) {
-                document.getElementById("nameError").innerText = "Name is required min 3 letters";
-            } else {
-                document.getElementById("nameError").innerText = "";
-            }
-        }
-
-    }
-
-
-
-    function oninputChangePassword(passwordValue) { // function with paramter
-        if (passwordValue === "" || passwordValue == null) {
-            document.getElementById("passwordError").innerText = "Password is required!"
-            isValid = false;
-        } else {
-            if (passwordValue.length < 6) {
-                document.getElementById("passwordError").innerText = "Password must be 6 lenght character!"
-                sValid = false;
-            } else {
-                document.getElementById("passwordError").innerText = "";
-            }
-        }
-    }
-
-    function oninputChangeEmail(emailValue) { // function with paramter
-        // let email = document.getElementById("email").value;
-        if (emailValue === "" || emailValue == null) {
-            document.getElementById("emailError").innerText = "Email is required!"
-            isValid = false;
-        } else {
-            if (emailValue.includes("@") || emailValue.includes(".com")) {
-                document.getElementById("emailError").innerText = "";
-            } else {
-                document.getElementById("emailError").innerText = "Email is incorrect!"
-            }
-        }
-    }
-
-    // Javascript Events
-    // oninput // call on input
-    // onchange // call on blur
-
-</script>
 </head>
 
 <body>
-    <div class="form-card">
-        <h1>Student Registration Form</h1>
-        <form method="post" id="studentForm" onsubmit="return submitForm()"> <!-- <form action="#" method="post"> -->
-            <div class="form-group">
-                <label for="name">Name:*</label>
-                <input type="text" id="name" name="name" oninput="oninputChangeName(this.value)">
-                <small style="color: red;" id="nameError"></small>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" oninput="oninputChangeEmail(this.value)">
-                <small style="color: red;" id="emailError"></small>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" oninput="oninputChangePassword(this.value)">
-                <small style="color: red;" id="passwordError"></small>
-            </div>
-            <div class="form-group"> <label for="city">City:</label> <input type="text" id="city" name="city"> <small
-                    style="color: red;" id="cityError"></small> </div>
-            <div class="form-group"> <label>Gender:</label>
-                <div class="option-group">
-                    <div class="option-row">
-                        <input type="radio" id="male" name="gender" value="male">
-                        <label for="male">Male</label>
-                    </div>
-                    <div class="option-row">
-                        <input type="radio" id="female" name="gender" value="female">
-                        <label for="female">Female</label>
-                    </div>
-                    <div class="option-row">
-                        <input type="radio" id="other" name="gender" value="other">
-                        <label for="other">Other</label>
-                    </div>
-                </div>
-                <small style="color: red;" id="genderError"></small>
-            </div>
-            <div class="form-group"> <label>Hobbies:</label>
-                <div class="option-group">
-                    <div class="option-row">
-                        <input type="checkbox" id="reading" name="hobbies" value="reading">
-                        <label for="reading">Reading</label>
-                    </div>
-                    <div class="option-row">
-                        <input type="checkbox" id="sports" name="hobbies" value="sports">
-                        <label for="sports">Sports</label>
-                    </div>
-                    <div class="option-row">
-                        <input type="checkbox" id="music" name="hobbies" value="music">
-                        <label for="music">Music</label>
-                    </div>
-                    <div class="option-row">
-                        <input type="checkbox" id="coding" name="hobbies" value="coding">
-                        <label for="coding">Coding</label>
-                    </div>
-                </div>
-                <small style="color: red;" id="hobbyError"></small>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Submit">
-            </div>
-        </form>
-        <div id="successMessage" class="success-message"></div>
-    </div>
+
+<div class="container">
+<h2>Form Validation</h2>
+
+<form onsubmit="return handleSubmit()">
+
+<label>Name:</label>
+<input type="text" id="name">
+<span id="nameError"></span>
+
+<label>Email:</label>
+<input type="text" id="email">
+<span id="emailError"></span>
+
+<label>Password:</label>
+<input type="password" id="password">
+<span id="passError"></span>
+
+<button id="submitBtn" disabled>Submit</button>
+
+</form>
+</div>
+
+<script>
+
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const submitBtn = document.getElementById("submitBtn");
+
+// Real-time validation
+[nameInput, emailInput, passwordInput].forEach(input => {
+  input.addEventListener("input", validateForm);
+});
+
+function validateForm() {
+
+let valid = true;
+
+// Clear previous errors
+document.getElementById("nameError").innerText = "";
+document.getElementById("emailError").innerText = "";
+document.getElementById("passError").innerText = "";
+
+// 🔹 NAME
+let name = nameInput.value.trim();
+if (name === "") {
+  document.getElementById("nameError").innerText = "Name required";
+  valid = false;
+} 
+else if (name.length !== 3) {
+  document.getElementById("nameError").innerText = "Must be exactly 3 characters";
+  valid = false;
+}
+
+// 🔹 EMAIL (FIXED)
+let email = emailInput.value.trim();
+let emailPattern = /^[^\s@]+@[^\s@]+\.com$/i;
+
+if (email === "") {
+  document.getElementById("emailError").innerText = "Email required";
+  valid = false;
+} 
+else if (!emailPattern.test(email)) {
+  document.getElementById("emailError").innerText = "Enter valid .com email";
+  valid = false;
+}
+
+// 🔹 PASSWORD (FIXED)
+let password = passwordInput.value.trim();
+
+// exactly: 3 letters, 4 digits, 1 special, total 8 chars
+let passwordPattern = /^(?=(.[A-Za-z]){3})(?=(.\d){4})(?=(.*[^A-Za-z0-9]){1})[A-Za-z\d^A-Za-z0-9]{8}$/;
+
+// better simpler strict pattern:
+passwordPattern = /^(?=(?:.[A-Za-z]){3})(?=(?:.\d){4})(?=(?:.*[^A-Za-z0-9]){1}).{8}$/;
+
+if (password === "") {
+  document.getElementById("passError").innerText = "Password required";
+  valid = false;
+} 
+else if (!passwordPattern.test(password)) {
+  document.getElementById("passError").innerText =
+    "3 letters, 4 digits, 1 special (total 8 chars)";
+  valid = false;
+}
+
+// 🔹 BUTTON CONTROL
+submitBtn.disabled = !valid;
+}
+
+// 🔹 SUBMIT
+function handleSubmit() {
+  alert("Form submitted successfully!");
+  return false;
+}
+
+</script>
+
 </body>
 </html>
